@@ -46,7 +46,7 @@ class Remove<T> extends Operation<T> {
 List<Operation<T>> diffList<T>(
   List<T> oldList,
   List<T> newList, {
-  String Function(T value) getKey,
+  String Function(T value)? getKey,
 }) {
   getKey ??= (T value) => value.hashCode.toString();
 
@@ -56,7 +56,7 @@ List<Operation<T>> diffList<T>(
   // first pass to check item in old list: if it's removed or not
   final children = oldKeyIndex.keys.map((oldKey) {
     if (newKeyIndex.containsKey(oldKey)) {
-      return newList[newKeyIndex[oldKey]];
+      return newList[newKeyIndex[oldKey]!];
     } else {
       return null;
     }
@@ -83,7 +83,7 @@ List<Operation<T>> diffList<T>(
     final item = newList[i];
     final itemKey = getKey(item);
     if (j < simulateList.length) {
-      final simulateItem = simulateList[j];
+      final simulateItem = simulateList[j]!;
       final simulateItemKey = getKey(simulateItem);
 
       if (itemKey == simulateItemKey) {
@@ -96,7 +96,7 @@ List<Operation<T>> diffList<T>(
           // if remove current simulateItem make item in right place
           // then just remove it
           var nextItemKey =
-              j + 1 < simulateList.length ? getKey(simulateList[j + 1]) : null;
+              j + 1 < simulateList.length ? getKey(simulateList[j + 1]!) : null;
           if (nextItemKey == itemKey) {
             operations.add(Remove(i));
             simulateList.removeAt(j);

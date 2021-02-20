@@ -13,9 +13,9 @@ Element defaultRender<T>(T item) =>
 void patchList<T, E>(
   Element parent,
   List<T> items, {
-  GetKey<T> getKey,
+  GetKey<T>? getKey,
   String keyAttr = 'key',
-  Render<T> render,
+  Render<T>? render,
   bool debug = true,
 }) {
   getKey ??= defaultGetKey;
@@ -27,7 +27,7 @@ void patchList<T, E>(
   for (final item in items) {
     final key = getKey(item);
     if (debug) {
-      if (key == null || key.isEmpty) {
+      if (key.isEmpty) {
         throw Exception('"$item" is missing a valid key.');
       } else if (newItems.containsKey(key)) {
         throw Exception('"$item" has a duplicated key "$key".');
@@ -40,9 +40,9 @@ void patchList<T, E>(
   // Build a map of all the old children.
   final oldChildren = <String, Element>{};
   for (final element in [...parent.children]) {
-    final key = element.getAttribute(keyAttr);
+    final key = element.getAttribute(keyAttr) ?? '';
     if (debug) {
-      if (key == null || key.isEmpty) {
+      if (key.isEmpty) {
         throw Exception('"$element" is missing attribute "$keyAttr".');
       } else if (oldChildren.containsKey(key)) {
         throw Exception('"$parent" has duplicated key "$key".');
@@ -74,7 +74,7 @@ void patchList<T, E>(
         if (debug) {
           window.console.log('Move $newKey before $currentChildKey.');
         }
-        parent.insertBefore(oldChildren[newKey], currentChild);
+        parent.insertBefore(oldChildren[newKey]!, currentChild);
         currentIndex++;
       }
       // New key does not exist yet, create and insert element.
@@ -82,7 +82,7 @@ void patchList<T, E>(
         if (debug) {
           window.console.log('Create $newKey before $currentChildKey.');
         }
-        final element = render(newItems[newKey]);
+        final element = render(newItems[newKey]!);
         element.setAttribute(keyAttr, newKey);
         parent.insertBefore(element, currentChild);
         currentIndex++;
@@ -92,7 +92,7 @@ void patchList<T, E>(
       if (debug) {
         window.console.log('Create $newKey at end.');
       }
-      final element = render(newItems[newKey]);
+      final element = render(newItems[newKey]!);
       element.setAttribute(keyAttr, newKey);
       parent.append(element);
       currentIndex++;

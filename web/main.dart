@@ -46,7 +46,7 @@ void main() {
 
   inputElement.onKeyPress.forEach((event) {
     if (event.keyCode == 13) {
-      modify(inputElement.value);
+      modify(inputElement.value ?? '');
       update();
     }
   });
