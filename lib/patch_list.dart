@@ -109,7 +109,7 @@ void patchList<T, E>(
       final childAttribute = currentChildren[i].getAttribute(keyAttr);
       if (newItemKeys[i] != childAttribute) {
         throw Exception(
-            'Expected "${newItemKeys[i]}", but found "${childAttribute}".');
+            'Expected "${newItemKeys[i]}", but found "$childAttribute".');
       }
     }
   }
