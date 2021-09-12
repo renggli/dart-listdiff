@@ -3,10 +3,10 @@ abstract class Operation<T> {
 }
 
 class Insert<T> extends Operation<T> {
+  Insert(this.index, this.value);
+
   final int index;
   final T value;
-
-  Insert(this.index, this.value);
 
   @override
   void apply(List<T> list) => list.insert(index, value);
@@ -23,9 +23,9 @@ class Insert<T> extends Operation<T> {
 }
 
 class Remove<T> extends Operation<T> {
-  final int index;
-
   Remove(this.index);
+
+  final int index;
 
   @override
   void apply(List<T> list) => list.removeAt(index);
