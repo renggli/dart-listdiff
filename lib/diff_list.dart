@@ -1,5 +1,3 @@
-import 'package:more/hash.dart';
-
 abstract class Operation<T> {
   void apply(List<T> list);
 }
@@ -17,7 +15,7 @@ class Insert<T> extends Operation<T> {
   String toString() => 'Insert($index, $value)';
 
   @override
-  int get hashCode => hash2(index, value);
+  int get hashCode => Object.hash(Insert, index, value);
 
   @override
   bool operator ==(Object other) =>
@@ -36,7 +34,7 @@ class Remove<T> extends Operation<T> {
   String toString() => 'Remove($index)';
 
   @override
-  int get hashCode => hash1(index);
+  int get hashCode => Object.hash(Remove, index);
 
   @override
   bool operator ==(Object other) => other is Remove && other.index == index;
