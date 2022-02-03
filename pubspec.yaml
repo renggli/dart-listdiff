@@ -2,7 +2,7 @@ name: listdiff
 description: An absolute bare-bones web app.
 
 environment:
-  sdk: '>=2.14.0 <3.0.0'
+  sdk: '>=2.16.0 <3.0.0'
 dependencies:
   more: ^3.3.0
 dev_dependencies:
