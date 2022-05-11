@@ -81,7 +81,7 @@ List<Operation<T>> diffList<T>(
     final item = newList[i];
     final itemKey = getKey(item);
     if (j < simulateList.length) {
-      final simulateItem = simulateList[j]!;
+      final simulateItem = simulateList[j] as T;
       final simulateItemKey = getKey(simulateItem);
 
       if (itemKey == simulateItemKey) {
@@ -93,8 +93,9 @@ List<Operation<T>> diffList<T>(
         } else {
           // if remove current simulateItem make item in right place
           // then just remove it
-          var nextItemKey =
-              j + 1 < simulateList.length ? getKey(simulateList[j + 1]!) : null;
+          var nextItemKey = j + 1 < simulateList.length
+              ? getKey(simulateList[j + 1] as T)
+              : null;
           if (nextItemKey == itemKey) {
             operations.add(Remove(i));
             simulateList.removeAt(j);
