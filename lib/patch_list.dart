@@ -82,7 +82,7 @@ void patchList<T, E>(
         if (debug) {
           window.console.log('Create $newKey before $currentChildKey.');
         }
-        final element = render(newItems[newKey] as T);
+        final element = render(newItems[newKey]!);
         element.setAttribute(keyAttr, newKey);
         parent.insertBefore(element, currentChild);
         currentIndex++;
@@ -92,7 +92,7 @@ void patchList<T, E>(
       if (debug) {
         window.console.log('Create $newKey at end.');
       }
-      final element = render(newItems[newKey] as T);
+      final element = render(newItems[newKey]!);
       element.setAttribute(keyAttr, newKey);
       parent.append(element);
       currentIndex++;
