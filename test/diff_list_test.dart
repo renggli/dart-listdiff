@@ -43,7 +43,7 @@ void main() {
             final newList = oldList.toList()..removeAt(index);
             final operations = diffList(oldList, newList);
             expectApplication(oldList, newList, operations);
-            expect(operations, [Remove(index)]);
+            expect(operations, [Remove<String>(index)]);
           });
         }
       }
@@ -56,7 +56,7 @@ void main() {
             final newList = oldList.toList()..insert(index, '!');
             final operations = diffList(oldList, newList);
             expectApplication(oldList, newList, operations);
-            expect(operations, [Insert(index, '!')]);
+            expect(operations, [Insert<String>(index, '!')]);
           });
         }
       }

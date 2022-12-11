@@ -10,7 +10,7 @@ Element defaultRender<T>(T item) =>
     document.createElement('div')..appendText(item.toString());
 
 // Based on https://github.com/livoras/list-diff
-void patchList<T, E>(
+void patchList<T>(
   Element parent,
   List<T> items, {
   GetKey<T>? getKey,
@@ -82,7 +82,7 @@ void patchList<T, E>(
         if (debug) {
           window.console.log('Create $newKey before $currentChildKey.');
         }
-        final element = render(newItems[newKey]!);
+        final element = render(newItems[newKey] as T);
         element.setAttribute(keyAttr, newKey);
         parent.insertBefore(element, currentChild);
         currentIndex++;
@@ -92,7 +92,7 @@ void patchList<T, E>(
       if (debug) {
         window.console.log('Create $newKey at end.');
       }
-      final element = render(newItems[newKey]!);
+      final element = render(newItems[newKey] as T);
       element.setAttribute(keyAttr, newKey);
       parent.append(element);
       currentIndex++;
