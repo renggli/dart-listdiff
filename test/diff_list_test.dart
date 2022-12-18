@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:listdiff/diff_list.dart';
-import 'package:more/iterable.dart';
+import 'package:more/collection.dart';
 import 'package:test/test.dart';
 
 const maxSize = 10;
@@ -83,7 +83,7 @@ void main() {
         for (var shift = 1; shift < size; shift++) {
           test('size = $size, shift = $shift or ${shift - size}', () {
             final oldList = List.generate(size, (i) => values[i]);
-            final newList = oldList.cycle().skip(shift).take(size).toList();
+            final newList = oldList.repeat().skip(shift).take(size).toList();
             final operations = diffList(oldList, newList);
             expectApplication(oldList, newList, operations);
           });
