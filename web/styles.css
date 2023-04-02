@@ -8,6 +8,19 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
-body > div {
+#form, #list {
   margin: 20px;
+}
+
+#form > label,
+#form > input {
+  vertical-align: middle;
+}
+
+#list {
+  font-family:courier, monospace;
+}
+
+#list > div {
+    white-space: pre;
 }
