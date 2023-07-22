@@ -1,4 +1,4 @@
-abstract class Operation<T> {
+sealed class Operation<T> {
   void apply(List<T> list);
 }
 

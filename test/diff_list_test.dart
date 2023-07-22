@@ -4,8 +4,8 @@ import 'package:listdiff/diff_list.dart';
 import 'package:more/collection.dart';
 import 'package:test/test.dart';
 
-const maxSize = 10;
 final values = 'abcdefghijklmnopqrstuvwxyz'.split('');
+final maxSize = values.length ~/ 2;
 
 void expectApplication<T>(
     List<T> oldList, List<T> newList, List<Operation<T>> operations) {
@@ -27,8 +27,8 @@ void main() {
     group('identical input and output', () {
       for (var size = 0; size < maxSize; size++) {
         test('size = $size', () {
-          final oldList = List.generate(size, (i) => values[i]);
-          final newList = List.generate(size, (i) => values[i]);
+          final oldList = values.take(size).toList();
+          final newList = values.take(size).toList();
           final operations = diffList(oldList, newList);
           expectApplication(oldList, newList, operations);
           expect(operations, isEmpty);
@@ -39,7 +39,7 @@ void main() {
       for (var size = 1; size < maxSize; size++) {
         for (var index = 0; index < size; index++) {
           test('size = $size, index = $index', () {
-            final oldList = List.generate(size, (i) => values[i]);
+            final oldList = values.take(size).toList();
             final newList = oldList.toList()..removeAt(index);
             final operations = diffList(oldList, newList);
             expectApplication(oldList, newList, operations);
@@ -52,7 +52,7 @@ void main() {
       for (var size = 0; size < maxSize; size++) {
         for (var index = 0; index <= size; index++) {
           test('size = $size, index = $index', () {
-            final oldList = List.generate(size, (i) => values[i]);
+            final oldList = values.take(size).toList();
             final newList = oldList.toList()..insert(index, '!');
             final operations = diffList(oldList, newList);
             expectApplication(oldList, newList, operations);
@@ -67,7 +67,7 @@ void main() {
           for (var b = 0; b < size; b++) {
             if (a < b) {
               test('size = $size, a = $a, b = $b', () {
-                final oldList = List.generate(size, (i) => values[i]);
+                final oldList = values.take(size).toList();
                 final newList = oldList.toList();
                 swapValues(newList, a, b);
                 final operations = diffList(oldList, newList);
@@ -82,7 +82,7 @@ void main() {
       for (var size = 1; size < maxSize; size++) {
         for (var shift = 1; shift < size; shift++) {
           test('size = $size, shift = $shift or ${shift - size}', () {
-            final oldList = List.generate(size, (i) => values[i]);
+            final oldList = values.take(size).toList();
             final newList = oldList.repeat().skip(shift).take(size).toList();
             final operations = diffList(oldList, newList);
             expectApplication(oldList, newList, operations);
