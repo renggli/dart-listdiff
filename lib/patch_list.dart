@@ -60,8 +60,8 @@ void patchList<T>(
 
   // Patch the list to match the input list.
   var currentIndex = 0;
-  var currentChildren = parent.children;
-  for (var newKey in newItemKeys) {
+  final currentChildren = parent.children;
+  for (final newKey in newItemKeys) {
     if (currentIndex < currentChildren.length) {
       final currentChild = currentChildren[currentIndex];
       final currentChildKey = currentChild.getAttribute(keyAttr);
