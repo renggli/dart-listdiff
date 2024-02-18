@@ -1,22 +1,22 @@
-import 'dart:html';
 import 'dart:math';
 
 import 'package:listdiff/patch_list.dart';
+import 'package:web/web.dart';
 
 void main() {
-  final inputElement = querySelector('#input') as InputElement;
-  final randomElement = querySelector('#random') as InputElement;
-  final sortElement = querySelector('#sort') as InputElement;
-  final shuffleElement = querySelector('#shuffle') as InputElement;
-  final debugElement = querySelector('#debug') as CheckboxInputElement;
-  final listElement = querySelector('#list') as DivElement;
+  final inputElement = document.querySelector('#input') as HTMLInputElement;
+  final randomElement = document.querySelector('#random') as HTMLInputElement;
+  final sortElement = document.querySelector('#sort') as HTMLInputElement;
+  final shuffleElement = document.querySelector('#shuffle') as HTMLInputElement;
+  final debugElement = document.querySelector('#debug') as HTMLInputElement;
+  final listElement = document.querySelector('#list') as HTMLDivElement;
 
   final random = Random();
   final items = <String>[];
 
   Element render(String text) {
     final element = document.createElement('div');
-    element.appendText(text);
+    element.appendChild(document.createTextNode(text));
     return element;
   }
 
@@ -31,15 +31,14 @@ void main() {
   }
 
   void update() {
-    patchList(listElement, items,
-        render: render, debug: debugElement.checked ?? false);
+    patchList(listElement, items, render: render, debug: debugElement.checked);
     inputElement.value = '';
     inputElement.focus();
   }
 
   inputElement.onKeyPress.forEach((event) {
     if (event.keyCode == 13) {
-      modify(inputElement.value ?? '');
+      modify(inputElement.value);
       update();
     }
   });

@@ -1,4 +1,8 @@
-import 'dart:html';
+import 'dart:js_interop';
+
+import 'package:web/web.dart';
+
+import 'utils/html_collection_list.dart';
 
 typedef GetKey<T> = String Function(T item);
 
@@ -6,8 +10,8 @@ String defaultGetKey<T>(T item) => item.toString();
 
 typedef Render<T> = Element Function(T element);
 
-Element defaultRender<T>(T item) =>
-    document.createElement('div')..appendText(item.toString());
+Element defaultRender<T>(T item) => document.createElement('div')
+  ..appendChild(document.createTextNode(item.toString()));
 
 // Based on https://github.com/livoras/list-diff
 void patchList<T>(
@@ -39,7 +43,7 @@ void patchList<T>(
 
   // Build a map of all the old children.
   final oldChildren = <String, Element>{};
-  for (final element in [...parent.children]) {
+  for (final element in parent.childrenList.toList()) {
     final key = element.getAttribute(keyAttr) ?? '';
     if (debug) {
       if (key.isEmpty) {
@@ -52,7 +56,7 @@ void patchList<T>(
       oldChildren[key] = element;
     } else {
       if (debug) {
-        window.console.log('Remove $key.');
+        console.log('Remove $key.'.toJS);
       }
       element.remove();
     }
@@ -60,7 +64,7 @@ void patchList<T>(
 
   // Patch the list to match the input list.
   var currentIndex = 0;
-  final currentChildren = parent.children;
+  final currentChildren = parent.childrenList;
   for (final newKey in newItemKeys) {
     if (currentIndex < currentChildren.length) {
       final currentChild = currentChildren[currentIndex];
@@ -72,7 +76,7 @@ void patchList<T>(
       // New key exist somewhere in the list, move here
       else if (oldChildren.containsKey(newKey)) {
         if (debug) {
-          window.console.log('Move $newKey before $currentChildKey.');
+          console.log('Move $newKey before $currentChildKey.'.toJS);
         }
         parent.insertBefore(oldChildren[newKey]!, currentChild);
         currentIndex++;
@@ -80,7 +84,7 @@ void patchList<T>(
       // New key does not exist yet, create and insert element.
       else {
         if (debug) {
-          window.console.log('Create $newKey before $currentChildKey.');
+          console.log('Create $newKey before $currentChildKey.'.toJS);
         }
         final element = render(newItems[newKey] as T);
         element.setAttribute(keyAttr, newKey);
@@ -90,7 +94,7 @@ void patchList<T>(
     } else {
       // New key does not exist yet, append it to the end.
       if (debug) {
-        window.console.log('Create $newKey at end.');
+        console.log('Create $newKey at end.'.toJS);
       }
       final element = render(newItems[newKey] as T);
       element.setAttribute(keyAttr, newKey);
@@ -100,7 +104,7 @@ void patchList<T>(
   }
 
   if (debug) {
-    final currentChildren = [...parent.children];
+    final currentChildren = parent.childrenList.toList();
     if (newItemKeys.length != currentChildren.length) {
       throw Exception(
           'Expected ${newItemKeys.length}, but found ${currentChildren.length}.');
