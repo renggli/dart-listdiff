@@ -2,7 +2,7 @@ name: listdiff
 description: Library for line diffing.
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.7.0
 dependencies:
   more: ^4.3.0
   web: ^1.0.0

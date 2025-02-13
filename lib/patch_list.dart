@@ -10,8 +10,9 @@ String defaultGetKey<T>(T item) => item.toString();
 
 typedef Render<T> = Element Function(T element);
 
-Element defaultRender<T>(T item) => document.createElement('div')
-  ..appendChild(document.createTextNode(item.toString()));
+Element defaultRender<T>(T item) =>
+    document.createElement('div')
+      ..appendChild(document.createTextNode(item.toString()));
 
 // Based on https://github.com/livoras/list-diff
 void patchList<T>(
@@ -107,13 +108,15 @@ void patchList<T>(
     final currentChildren = parent.childrenList.toList();
     if (newItemKeys.length != currentChildren.length) {
       throw Exception(
-          'Expected ${newItemKeys.length}, but found ${currentChildren.length}.');
+        'Expected ${newItemKeys.length}, but found ${currentChildren.length}.',
+      );
     }
     for (var i = 0; i < newItemKeys.length; i++) {
       final childAttribute = currentChildren[i].getAttribute(keyAttr);
       if (newItemKeys[i] != childAttribute) {
         throw Exception(
-            'Expected "${newItemKeys[i]}", but found "$childAttribute".');
+          'Expected "${newItemKeys[i]}", but found "$childAttribute".',
+        );
       }
     }
   }

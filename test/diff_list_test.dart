@@ -8,7 +8,10 @@ final values = 'abcdefghijklmnopqrstuvwxyz'.split('');
 final maxSize = values.length ~/ 2;
 
 void expectApplication<T>(
-    List<T> oldList, List<T> newList, List<Operation<T>> operations) {
+  List<T> oldList,
+  List<T> newList,
+  List<Operation<T>> operations,
+) {
   final actualList = oldList.toList();
   for (final operation in operations) {
     operation.apply(actualList);

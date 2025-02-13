@@ -52,13 +52,14 @@ List<Operation<T>> diffList<T>(
   final newKeyIndex = getKeyIndex(newList, getKey);
 
   // first pass to check item in old list: if it's removed or not
-  final children = oldKeyIndex.keys.map((oldKey) {
-    if (newKeyIndex.containsKey(oldKey)) {
-      return newList[newKeyIndex[oldKey]!];
-    } else {
-      return null;
-    }
-  }).toList();
+  final children =
+      oldKeyIndex.keys.map((oldKey) {
+        if (newKeyIndex.containsKey(oldKey)) {
+          return newList[newKeyIndex[oldKey]!];
+        } else {
+          return null;
+        }
+      }).toList();
 
   final operations = <Operation<T>>[];
   final simulateList = children.toList();
@@ -93,9 +94,10 @@ List<Operation<T>> diffList<T>(
         } else {
           // if remove current simulateItem make item in right place
           // then just remove it
-          final nextItemKey = j + 1 < simulateList.length
-              ? getKey(simulateList[j + 1] as T)
-              : null;
+          final nextItemKey =
+              j + 1 < simulateList.length
+                  ? getKey(simulateList[j + 1] as T)
+                  : null;
           if (nextItemKey == itemKey) {
             operations.add(Remove(i));
             simulateList.removeAt(j);
