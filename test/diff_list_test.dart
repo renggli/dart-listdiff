@@ -98,10 +98,12 @@ void main() {
       for (var sourceSize = 0; sourceSize < maxSize; sourceSize++) {
         for (var targetSize = 0; targetSize < maxSize; targetSize++) {
           test('sourceSize = $sourceSize, targetSize = $targetSize', () {
-            final oldList =
-                (values.toList()..shuffle(random)).take(sourceSize).toList();
-            final newList =
-                (values.toList()..shuffle(random)).take(targetSize).toList();
+            final oldList = (values.toList()..shuffle(random))
+                .take(sourceSize)
+                .toList();
+            final newList = (values.toList()..shuffle(random))
+                .take(targetSize)
+                .toList();
             final operations = diffList(oldList, newList);
             expectApplication(oldList, newList, operations);
           });
