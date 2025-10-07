@@ -1,5 +1,6 @@
 name: listdiff
 description: Library for line diffing.
+version: 0.0.1
 
 environment:
   sdk: ^3.8.0
