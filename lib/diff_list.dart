@@ -1,11 +1,18 @@
+/// An operation that describes a change in a list.
 sealed class Operation<T> {
+  /// Applies this operation to the [list].
   void apply(List<T> list);
 }
 
+/// An insertion operation.
 class Insert<T> extends Operation<T> {
+  /// Creates an insertion of [value] at [index].
   Insert(this.index, this.value);
 
+  /// The index where the value is inserted.
   final int index;
+
+  /// The value to be inserted.
   final T value;
 
   @override
@@ -22,9 +29,12 @@ class Insert<T> extends Operation<T> {
       other is Insert && other.index == index && other.value == value;
 }
 
+/// A removal operation.
 class Remove<T> extends Operation<T> {
+  /// Creates a removal at [index].
   Remove(this.index);
 
+  /// The index where the value is removed.
   final int index;
 
   @override
@@ -40,7 +50,28 @@ class Remove<T> extends Operation<T> {
   bool operator ==(Object other) => other is Remove && other.index == index;
 }
 
-// Based on https://github.com/livoras/list-diff
+/// Calculates the difference between [oldList] and [newList].
+///
+/// Returns a list of [Operation]s that when applied to [oldList] transform it
+/// into [newList].
+///
+/// The [getKey] function is used to identify items in the list. If not provided,
+/// the `hashCode` of the item is used.
+///
+/// Example:
+/// ```dart
+/// final oldList = ['a', 'b', 'c'];
+/// final newList = ['a', 'c', 'd'];
+/// final operations = diffList(oldList, newList);
+///
+/// for (final op in operations) {
+///   op.apply(oldList);
+/// }
+///
+/// print(oldList); // ['a', 'c', 'd']
+/// ```
+///
+/// This code is based on <https://github.com/livoras/list-diff>.
 List<Operation<T>> diffList<T>(
   List<T> oldList,
   List<T> newList, {
@@ -122,6 +153,9 @@ List<Operation<T>> diffList<T>(
   return operations;
 }
 
+/// Returns a map of keys to their index in the [list].
+///
+/// The [getKey] function is used to generate the key for each item.
 Map<String, int> getKeyIndex<T>(List<T> list, String Function(T value) getKey) {
   final result = <String, int>{};
   for (var i = 0; i < list.length; i++) {

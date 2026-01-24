@@ -4,17 +4,39 @@ import 'package:web/web.dart';
 
 import 'utils/html_collection_list.dart';
 
+/// A function that returns the key of an item.
 typedef GetKey<T> = String Function(T item);
 
+/// Returns the string representation of [item] as its key.
 String defaultGetKey<T>(T item) => item.toString();
 
+/// A function that renders an item into an [Element].
 typedef Render<T> = Element Function(T element);
 
+/// Renders [item] as a `div` element with the item's string representation as text.
 Element defaultRender<T>(T item) =>
     document.createElement('div')
       ..appendChild(document.createTextNode(item.toString()));
 
-// Based on https://github.com/livoras/list-diff
+/// Patches the [parent] element's children to match [items].
+///
+/// This function reconciles the current children of [parent] with the new list
+/// of [items]. It uses [getKey] to identify items and [render] to create new
+/// elements.
+///
+/// If [debug] is true, additional checks are performed to ensure keys are unique
+/// and valid.
+///
+/// The [keyAttr] is the attribute name used to store the key on the DOM elements.
+///
+/// Example:
+/// ```dart
+/// final parent = document.getElementById('list')!;
+/// final items = ['a', 'b', 'c'];
+/// patchList(parent, items);
+/// ```
+///
+/// This code is based on <https://github.com/livoras/list-diff>.
 void patchList<T>(
   Element parent,
   List<T> items, {
