@@ -3,12 +3,12 @@ description: Library for line diffing.
 version: 0.0.1
 
 environment:
-  sdk: ^3.8.0
+  sdk: ^3.13.0
 dependencies:
-  more: ^4.3.0
-  web: ^1.0.0
+  more: ^4.7.0
+  web: ^1.1.1
 dev_dependencies:
-  build_runner: ^2.4.0
-  build_web_compilers: ^4.0.0
-  lints: ^6.0.0
-  test: ^1.25.0
+  build_runner: ^2.16.0
+  build_web_compilers: ^4.8.9
+  lints: ^6.1.0
+  test: ^1.31.2

@@ -13,7 +13,7 @@ extension ElementChildrenList on Element {
 /// This list is unmodifiable.
 class HTMLCollectionList with ListBase<Element> {
   /// Creates a list view of the provided collection.
-  HTMLCollectionList(this._collection);
+  new(this._collection);
 
   final HTMLCollection _collection;
 

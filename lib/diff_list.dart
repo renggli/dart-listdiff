@@ -7,7 +7,7 @@ sealed class Operation<T> {
 /// An insertion operation.
 class Insert<T> extends Operation<T> {
   /// Creates an insertion of [value] at [index].
-  Insert(this.index, this.value);
+  new(this.index, this.value);
 
   /// The index where the value is inserted.
   final int index;
@@ -32,7 +32,7 @@ class Insert<T> extends Operation<T> {
 /// A removal operation.
 class Remove<T> extends Operation<T> {
   /// Creates a removal at [index].
-  Remove(this.index);
+  new(this.index);
 
   /// The index where the value is removed.
   final int index;
